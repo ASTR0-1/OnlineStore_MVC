@@ -1,0 +1,13 @@
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\bin\Debug\netcoreapp3.1\OnlineStore_BLL.deps.json
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\bin\Debug\netcoreapp3.1\OnlineStore_BLL.runtimeconfig.json
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\bin\Debug\netcoreapp3.1\OnlineStore_BLL.runtimeconfig.dev.json
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\bin\Debug\netcoreapp3.1\OnlineStore_BLL.dll
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\bin\Debug\netcoreapp3.1\OnlineStore_BLL.pdb
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.csproj.AssemblyReference.cache
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.AssemblyInfoInputs.cache
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.AssemblyInfo.cs
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.csproj.CoreCompileInputs.cache
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.dll
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.pdb
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_BLL\obj\Debug\netcoreapp3.1\OnlineStore_BLL.genruntimeconfig.cache
