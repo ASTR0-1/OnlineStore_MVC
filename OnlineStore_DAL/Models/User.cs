@@ -16,5 +16,7 @@ namespace OnlineStore_DAL.Models
         public WishList WishList { get; set; }
 
         public ShoppingCart ShoppingCart { get; set; }
+
+        public Receipt Receipt { get; set; }
     }
 }
