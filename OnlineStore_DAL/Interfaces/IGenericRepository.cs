@@ -2,7 +2,7 @@
 
 namespace OnlineStore_DAL.Interfaces
 {
-    public interface IGenericRepository<T>
+    public interface IGenericRepository<T> where T : class
     {
         Task AddAsync(T entity);
 
