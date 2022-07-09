@@ -5,7 +5,7 @@ namespace OnlineStore_DAL.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        IEnumerable<T> GetAllAsync();
+        IEnumerable<T> GetAll();
 
         Task<T> GetAsync(int id);
 
