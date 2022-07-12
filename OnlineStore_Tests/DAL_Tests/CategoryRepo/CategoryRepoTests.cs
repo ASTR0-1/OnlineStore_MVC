@@ -28,7 +28,7 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
                 async () => await _categoryRepo.AddAsync(nullCategory));
 
             // Assert
-            Assert.IsNotNull(actualException, "Method didn't throw any exceptions.");
+            Assert.IsNotNull(actualException, "Method doesn't throw any exceptions.");
             Assert.That(actualException.GetType(), Is.EqualTo(expectedException), "Method doesn't throw null exception.");
         }
 
