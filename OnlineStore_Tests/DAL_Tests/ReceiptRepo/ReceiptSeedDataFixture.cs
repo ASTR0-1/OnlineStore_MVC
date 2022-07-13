@@ -8,7 +8,7 @@ namespace OnlineStore_Tests.DAL_Tests.ReceiptRepo
     public class ReceiptSeedDataFixture : IDisposable
     {
         public ApplicationDbContext ApplicationDbContext { get; private set; } = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("OnlineStore_MVC")
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options);
 
         public ReceiptSeedDataFixture()

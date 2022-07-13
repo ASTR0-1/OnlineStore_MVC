@@ -8,7 +8,7 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
     public class CategorySeedDataFixture : IDisposable
     {
         public ApplicationDbContext ApplicationDbContext { get; private set; } = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("OnlineStore_MVC")
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options);
 
         public CategorySeedDataFixture()

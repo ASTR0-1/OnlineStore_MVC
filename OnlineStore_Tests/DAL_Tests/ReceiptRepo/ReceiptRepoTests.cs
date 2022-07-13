@@ -184,7 +184,7 @@ namespace OnlineStore_Tests.DAL_Tests.ReceiptRepo
             int actualProductCount = ((await _receiptRepo.GetAsync(1)).Products).Count();
 
             // Assert
-            Assert.That(actualProductCount, Is.EqualTo(expectedProductCount), "Receipt's product count wasn't equal.");
+            Assert.That(actualProductCount, Is.EqualTo(expectedProductCount), "Receipt's product count aren't equal.");
         }
     }
 }
