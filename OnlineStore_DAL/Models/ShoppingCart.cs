@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineStore_DAL.Models
@@ -10,6 +10,7 @@ namespace OnlineStore_DAL.Models
 
         public int UserId { get; set; }
 
+        [Required]
         [ForeignKey("UserId")]
         public User User { get; set; }
 
