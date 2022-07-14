@@ -131,7 +131,7 @@ namespace OnlineStore_Tests.DAL_Tests.ReceiptRepo
             var actualException = Assert.CatchAsync(async () => await _receiptRepo.GetAsync(notExistingId));
 
             // Assert
-            Assert.That(actualException.GetType(), Is.EqualTo(expectedException), "Receipts wasn't null.");
+            Assert.That(actualException.GetType(), Is.EqualTo(expectedException), "Receipt wasn't null.");
         }
 
         [Test]
