@@ -181,3 +181,5 @@ C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_Tests\bin\Debug\netcorea
 C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_Tests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_Tests\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_Tests\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_Tests\bin\Debug\netcoreapp3.1\OnlineStore_BLL.dll
+C:\Users\duhov\source\repos\OnlineStore_MVC\OnlineStore_Tests\bin\Debug\netcoreapp3.1\OnlineStore_BLL.pdb

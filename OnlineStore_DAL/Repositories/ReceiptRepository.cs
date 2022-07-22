@@ -38,14 +38,24 @@ namespace OnlineStore_DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Receipt> GetAll()
+        public async Task<IEnumerable<Receipt>> GetAllAsync()
         {
-            return _context.Receipts.Include(r => r.Products);
+            return await _context.Receipts
+                .Include(r => r.User)
+                .Include(r => r.Products)
+                    .ThenInclude(p => p.Image)    
+
+                .ToListAsync();
         }
 
         public async Task<Receipt> GetAsync(int id)
         {
-            var receipt = await _context.Receipts.FirstOrDefaultAsync(r => r.Id == id);
+            var receipt = await _context.Receipts
+                .Include(r => r.User)
+                .Include(r => r.Products)
+                    .ThenInclude(p => p.Image)
+
+                .FirstOrDefaultAsync(r => r.Id == id);
 
             if (receipt != null)
                 return receipt;

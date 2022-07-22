@@ -99,7 +99,7 @@ namespace OnlineStore_Tests.DAL_Tests.WishListRepo
         }
 
         [Test]
-        public void GetAll()
+        public async Task GetAllAsync()
         {
             using var fixture = new WishListSeedDataFixture();
             _wishListRepo = new WishListRepository(fixture.ApplicationDbContext);
@@ -108,7 +108,7 @@ namespace OnlineStore_Tests.DAL_Tests.WishListRepo
             int expectedCount = 2;
 
             // Act
-            int actualCount = _wishListRepo.GetAll().Count();
+            int actualCount = (await _wishListRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "WishLists count wasn't equal to expected.");

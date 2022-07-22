@@ -93,7 +93,7 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
         }
 
         [Test]
-        public void GetAll()
+        public async Task GetAllAsync()
         {
             using var fixture = new CategorySeedDataFixture();
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
@@ -102,7 +102,7 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             int expectedCount = 2;
 
             // Act
-            int actualCount = _categoryRepo.GetAll().Count();
+            int actualCount = (await _categoryRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Categories count wasn't equal to expected.");

@@ -86,7 +86,7 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
         }
 
         [Test]
-        public void GetAll()
+        public async Task GetAllAsync()
         {
             using var fixture = new ProductSeedDataFixture();
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
@@ -95,7 +95,7 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             int expectedCount = 2;
 
             // Act
-            int actualCount = _productRepo.GetAll().Count();
+            int actualCount = (await _productRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Product count wasn't equal to expected.");

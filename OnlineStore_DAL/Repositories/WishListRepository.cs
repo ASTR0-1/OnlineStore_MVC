@@ -38,14 +38,24 @@ namespace OnlineStore_DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<WishList> GetAll()
+        public async Task<IEnumerable<WishList>> GetAllAsync()
         {
-            return _context.WishLists.Include(w => w.Products);
+            return await _context.WishLists
+                .Include(w => w.Products)
+                    .ThenInclude(p => p.Image)
+
+                .Include(w => w.User)
+                .ToListAsync();
         }
 
         public async Task<WishList> GetAsync(int id)
         {
-            var wishlist = await _context.WishLists.FirstOrDefaultAsync(w => w.Id == id);
+            var wishlist = await _context.WishLists
+                .Include(w => w.Products)
+                    .ThenInclude(p => p.Image)
+
+                .Include(w => w.User)
+                .FirstOrDefaultAsync(w => w.Id == id);
 
             if (wishlist != null)
                 return wishlist;

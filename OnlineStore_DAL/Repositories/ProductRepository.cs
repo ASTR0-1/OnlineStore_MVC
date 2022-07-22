@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OnlineStore_DAL.Interfaces;
 using OnlineStore_DAL.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineStore_DAL.Repositories
 {
     public class ProductRepository : IGenericRepository<Product>
     {
-        ApplicationDbContext _context;
+        private static ApplicationDbContext _context;
 
         public ProductRepository(ApplicationDbContext context)
         {
@@ -40,15 +39,36 @@ namespace OnlineStore_DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return _context.Products.Include(p => p.WishLists)
-                .Include(p => p.Receipts).Include(p => p.ShoppingCarts);
+            return await _context.Products
+                .Include(p => p.Image)
+                .Include(p => p.WishLists)
+                    .ThenInclude(w => w.User)
+
+                .Include(p => p.Receipts)
+                    .ThenInclude(r => r.User)
+
+                .Include(p => p.ShoppingCarts)
+                    .ThenInclude(sc => sc.User)
+
+                .ToListAsync();
         }
 
         public async Task<Product> GetAsync(int id)
         {
-            var receipt = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var receipt = await _context.Products
+                .Include(p => p.WishLists)
+                    .ThenInclude(w => w.User)
+
+                .Include(p => p.Receipts)
+                    .ThenInclude(r => r.User)
+
+                .Include(p => p.ShoppingCarts)
+                    .ThenInclude(sc => sc.User)
+
+                .Include(p => p.Image)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (receipt != null)
                 return receipt;

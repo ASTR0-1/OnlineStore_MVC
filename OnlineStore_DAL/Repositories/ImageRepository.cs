@@ -38,14 +38,18 @@ namespace OnlineStore_DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Image> GetAll()
+        public async Task<IEnumerable<Image>> GetAllAsync()
         {
-            return _context.Images;
+            return await _context.Images
+                .Include(i => i.Product)
+                .ToListAsync();
         }
 
         public async Task<Image> GetAsync(int id)
         {
-            var image = await _context.Images.FirstOrDefaultAsync(i => i.Id == id);
+            var image = await _context.Images
+                .Include(i => i.Product)
+                .FirstOrDefaultAsync(i => i.Id == id);
 
             if (image != null)
                 return image;

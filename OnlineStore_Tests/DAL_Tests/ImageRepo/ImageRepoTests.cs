@@ -97,7 +97,7 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
         }
 
         [Test]
-        public void GetAll()
+        public async Task GetAllAsync()
         {
             using var fixture = new ImageSeedDataFixture();
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
@@ -106,7 +106,7 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             int expectedCount = 2;
 
             // Act
-            int actualCount = _imageRepo.GetAll().Count();
+            int actualCount = (await _imageRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Images count wasn't equal to expected.");

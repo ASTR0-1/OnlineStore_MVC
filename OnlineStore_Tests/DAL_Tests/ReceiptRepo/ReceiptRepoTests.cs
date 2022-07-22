@@ -102,7 +102,7 @@ namespace OnlineStore_Tests.DAL_Tests.ReceiptRepo
         }
 
         [Test]
-        public void GetAll()
+        public async Task GetAllAsync()
         {
             using var fixture = new ReceiptSeedDataFixture();
             _receiptRepo = new ReceiptRepository(fixture.ApplicationDbContext);
@@ -111,7 +111,7 @@ namespace OnlineStore_Tests.DAL_Tests.ReceiptRepo
             int expectedCount = 2;
 
             // Act
-            int actualCount = _receiptRepo.GetAll().Count();
+            int actualCount = (await _receiptRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Receipt count wasn't equal to expected.");

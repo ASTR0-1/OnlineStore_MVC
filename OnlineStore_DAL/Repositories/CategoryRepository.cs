@@ -9,7 +9,7 @@ namespace OnlineStore_DAL.Repositories
 {
     public class CategoryRepository : IGenericRepository<Category>
     {
-        private ApplicationDbContext _context;
+        private static ApplicationDbContext _context;
 
         public CategoryRepository(ApplicationDbContext context)
         {
@@ -38,14 +38,18 @@ namespace OnlineStore_DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Category> GetAll()
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return _context.Categories.Include(c => c.Products);
+            return await _context.Categories
+                .Include(c => c.Products)
+                .ToListAsync();
         }
 
         public async Task<Category> GetAsync(int id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _context.Categories
+                .Include(c => c.Products)
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (category != null)
                 return category;
@@ -55,7 +59,7 @@ namespace OnlineStore_DAL.Repositories
 
         public async Task UpdateAsync(Category entity)
         {
-            if(entity != null)
+            if (entity != null)
                 _context.Categories.Update(entity);
             else
                 throw new NullReferenceException();

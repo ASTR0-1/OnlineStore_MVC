@@ -38,14 +38,24 @@ namespace OnlineStore_DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<ShoppingCart> GetAll()
+        public async Task<IEnumerable<ShoppingCart>> GetAllAsync()
         {
-            return _context.ShoppingCarts.Include(sc => sc.Products);
+            return await _context.ShoppingCarts
+                .Include(sc => sc.Products)
+                    .ThenInclude(p => p.Image)
+
+                .Include(sc => sc.User)
+                .ToListAsync();
         }
 
         public async Task<ShoppingCart> GetAsync(int id)
         {
-            var shoppingCart = await _context.ShoppingCarts.FirstOrDefaultAsync(sc => sc.Id == id);
+            var shoppingCart = await _context.ShoppingCarts
+                .Include(sc => sc.Products)
+                    .ThenInclude(p => p.Image)
+
+                .Include(sc => sc.User)
+                .FirstOrDefaultAsync(sc => sc.Id == id);
 
             if (shoppingCart != null)
                 return shoppingCart;

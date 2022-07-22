@@ -100,7 +100,7 @@ namespace OnlineStore_Tests.DAL_Tests.ShoppingCartRepo
         }
 
         [Test]
-        public void GetAll()
+        public async Task GetAllAsync()
         {
             using var fixture = new ShoppingCartSeedDataFixture();
             _shoppingCartRepo = new ShoppingCartRepository(fixture.ApplicationDbContext);
@@ -109,7 +109,7 @@ namespace OnlineStore_Tests.DAL_Tests.ShoppingCartRepo
             int expectedCount = 2;
 
             // Act
-            int actualCount = _shoppingCartRepo.GetAll().Count();
+            int actualCount = (await _shoppingCartRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "ShoppingCart count wasn't equal to expected.");
