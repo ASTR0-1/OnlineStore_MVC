@@ -18,6 +18,7 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
                 Name = "Onion",
                 Price = new Decimal(2.45),
                 AmountAvailable = 20,
+                Image = new Image(),
                 Category = new Category(),
                 WishLists = new List<WishList>(),
                 Receipts = new List<Receipt>(),

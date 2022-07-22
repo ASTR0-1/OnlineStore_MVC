@@ -42,7 +42,6 @@ namespace OnlineStore_DAL.Repositories
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await _context.Products
-                .Include(p => p.Image)
                 .Include(p => p.WishLists)
                     .ThenInclude(w => w.User)
 
@@ -52,6 +51,8 @@ namespace OnlineStore_DAL.Repositories
                 .Include(p => p.ShoppingCarts)
                     .ThenInclude(sc => sc.User)
 
+                .Include(p => p.Image)
+                .Include(p => p.Category)
                 .ToListAsync();
         }
 
@@ -68,6 +69,7 @@ namespace OnlineStore_DAL.Repositories
                     .ThenInclude(sc => sc.User)
 
                 .Include(p => p.Image)
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (receipt != null)

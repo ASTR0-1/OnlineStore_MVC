@@ -39,9 +39,8 @@ namespace OnlineStore_DAL.Models
 
         public Image Image { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
-        [Required]
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
     }
