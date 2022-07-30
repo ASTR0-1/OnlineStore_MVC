@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineStore_DAL.CustomValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace OnlineStore_DAL.Models
 
         [Required]
         [MaxLength(10)]
+        [CheckCapitalized]
         public string Name { get; set; }
 
         [MaxLength(20)]
