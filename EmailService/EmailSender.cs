@@ -21,6 +21,10 @@ namespace EmailService
             {
                 using (var smtpClient = new SmtpClient())
                 {
+                    // Used for developing environment
+                    // Remove for production
+                    smtpClient.CheckCertificateRevocation = false;
+
                     await smtpClient.ConnectAsync(_emailConfiguration.SmtpServer, _emailConfiguration.Port, true);
                     smtpClient.AuthenticationMechanisms.Remove("XOAUTH2");
                     await smtpClient.AuthenticateAsync(_emailConfiguration.UserName, _emailConfiguration.Password);
