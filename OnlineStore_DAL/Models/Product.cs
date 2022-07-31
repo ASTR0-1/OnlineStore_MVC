@@ -13,11 +13,11 @@ namespace OnlineStore_DAL.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(20)]
         [CheckCapitalized]
         public string Name { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Description { get; set; }
 
         [Required]
