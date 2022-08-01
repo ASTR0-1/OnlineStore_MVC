@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OnlineStore_DAL.CustomValidation;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineStore_DAL.Models
@@ -22,6 +23,6 @@ namespace OnlineStore_DAL.Models
 
         public ShoppingCart ShoppingCart { get; set; }
 
-        public Receipt Receipt { get; set; }
+        public List<Receipt> Receipts { get; set; }
     }
 }
