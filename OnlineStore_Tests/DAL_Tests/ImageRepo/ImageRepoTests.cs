@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using OnlineStore_DAL.Models;
-using OnlineStore_DAL.Repositories;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
+using OnlineStore_DAL.Models;
+using OnlineStore_DAL.Repositories;
 
 namespace OnlineStore_Tests.DAL_Tests.ImageRepo
 {
@@ -28,7 +28,8 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
 
             // Assert
             Assert.IsNotNull(actualException, "Method doesn't throw any exceptions.");
-            Assert.That(actualException.GetType(), Is.EqualTo(expectedException), "Method doesn't throw null exception.");
+            Assert.That(actualException.GetType(), Is.EqualTo(expectedException),
+                "Method doesn't throw null exception.");
         }
 
         [Test]
@@ -38,8 +39,8 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            Image category = new Image();
-            int expectedCount = 3;
+            var category = new Image();
+            var expectedCount = 3;
 
             // Act
             await _imageRepo.AddAsync(new Image
@@ -48,11 +49,11 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
                 Product = new Product
                 {
                     Name = "Test",
-                    Price = new Decimal(1.50),
+                    Price = new decimal(1.50),
                     AmountAvailable = 1,
                     CategoryId = 1
                 },
-                ProductId = 3,
+                ProductId = 3
             });
             var actualCount = fixture.ApplicationDbContext.Images.Count();
 
@@ -67,7 +68,7 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int notExistingId = -1;
+            var notExistingId = -1;
             var expectedException = typeof(NullReferenceException);
 
             // Act
@@ -85,12 +86,12 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int existingId = 1;
-            int expectedCount = 1;
+            var existingId = 1;
+            var expectedCount = 1;
 
             // Act
             await _imageRepo.DeleteAsync(existingId);
-            int actualCount = fixture.ApplicationDbContext.Images.Count();
+            var actualCount = fixture.ApplicationDbContext.Images.Count();
 
             //Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Image wasn't deleted.");
@@ -103,10 +104,10 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int expectedCount = 2;
+            var expectedCount = 2;
 
             // Act
-            int actualCount = (await _imageRepo.GetAllAsync()).Count();
+            var actualCount = (await _imageRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Images count wasn't equal to expected.");
@@ -119,7 +120,7 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int notExistingId = -1;
+            var notExistingId = -1;
             var expectedException = typeof(NullReferenceException);
 
             // Act
@@ -136,11 +137,11 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int existingId = 1;
-            string expectedImageName = "PotatoImg";
+            var existingId = 1;
+            var expectedImageName = "PotatoImg";
 
             // Act
-            string actualImageName = (await _imageRepo.GetAsync(existingId)).Name;
+            var actualImageName = (await _imageRepo.GetAsync(existingId)).Name;
 
             // Assert
             Assert.That(actualImageName, Is.EqualTo(expectedImageName), "Categories was not equal.");
@@ -170,13 +171,13 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
             _imageRepo = new ImageRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            Image image = await _imageRepo.GetAsync(1);
-            string expectedImageName = "PotatoImg";
+            var image = await _imageRepo.GetAsync(1);
+            var expectedImageName = "PotatoImg";
             image.Name = expectedImageName;
 
             // Act
             await _imageRepo.UpdateAsync(image);
-            string actualImageName = (await _imageRepo.GetAsync(1)).Name;
+            var actualImageName = (await _imageRepo.GetAsync(1)).Name;
 
             // Assert
             Assert.That(actualImageName, Is.EqualTo(expectedImageName), "Category names aren't equal.");

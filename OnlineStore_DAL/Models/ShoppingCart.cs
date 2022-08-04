@@ -10,9 +10,7 @@ namespace OnlineStore_DAL.Models
 
         public int UserId { get; set; }
 
-        [Required]
-        [ForeignKey("UserId")]
-        public User User { get; set; }
+        [Required] [ForeignKey("UserId")] public User User { get; set; }
 
         public List<Product> Products { get; set; }
     }

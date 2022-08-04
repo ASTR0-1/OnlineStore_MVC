@@ -1,15 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore_DAL.Interfaces;
-using OnlineStore_DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using OnlineStore_DAL.Interfaces;
+using OnlineStore_DAL.Models;
 
 namespace OnlineStore_DAL.Repositories
 {
     public class WishListRepository : IGenericRepository<WishList>
     {
-        ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public WishListRepository(ApplicationDbContext context)
         {
@@ -42,8 +42,7 @@ namespace OnlineStore_DAL.Repositories
         {
             return await _context.WishLists
                 .Include(w => w.Products)
-                    .ThenInclude(p => p.Image)
-
+                .ThenInclude(p => p.Image)
                 .Include(w => w.User)
                 .ToListAsync();
         }
@@ -52,15 +51,13 @@ namespace OnlineStore_DAL.Repositories
         {
             var wishlist = await _context.WishLists
                 .Include(w => w.Products)
-                    .ThenInclude(p => p.Image)
-
+                .ThenInclude(p => p.Image)
                 .Include(w => w.User)
                 .FirstOrDefaultAsync(w => w.Id == id);
 
             if (wishlist != null)
                 return wishlist;
-            else
-                throw new NullReferenceException();
+            throw new NullReferenceException();
         }
 
         public async Task UpdateAsync(WishList entity)

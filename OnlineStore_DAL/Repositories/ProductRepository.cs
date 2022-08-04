@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore_DAL.Interfaces;
-using OnlineStore_DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using OnlineStore_DAL.Interfaces;
+using OnlineStore_DAL.Models;
 
 namespace OnlineStore_DAL.Repositories
 {
@@ -43,14 +43,11 @@ namespace OnlineStore_DAL.Repositories
         {
             return await _context.Products
                 .Include(p => p.WishLists)
-                    .ThenInclude(w => w.User)
-
+                .ThenInclude(w => w.User)
                 .Include(p => p.Receipts)
-                    .ThenInclude(r => r.User)
-
+                .ThenInclude(r => r.User)
                 .Include(p => p.ShoppingCarts)
-                    .ThenInclude(sc => sc.User)
-
+                .ThenInclude(sc => sc.User)
                 .Include(p => p.Image)
                 .Include(p => p.Category)
                 .ToListAsync();
@@ -60,22 +57,18 @@ namespace OnlineStore_DAL.Repositories
         {
             var receipt = await _context.Products
                 .Include(p => p.WishLists)
-                    .ThenInclude(w => w.User)
-
+                .ThenInclude(w => w.User)
                 .Include(p => p.Receipts)
-                    .ThenInclude(r => r.User)
-
+                .ThenInclude(r => r.User)
                 .Include(p => p.ShoppingCarts)
-                    .ThenInclude(sc => sc.User)
-
+                .ThenInclude(sc => sc.User)
                 .Include(p => p.Image)
                 .Include(p => p.Category)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (receipt != null)
                 return receipt;
-            else
-                throw new NullReferenceException();
+            throw new NullReferenceException();
         }
 
         public async Task UpdateAsync(Product entity)

@@ -1,15 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore_DAL.Interfaces;
-using OnlineStore_DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using OnlineStore_DAL.Interfaces;
+using OnlineStore_DAL.Models;
 
 namespace OnlineStore_DAL.Repositories
 {
     public class ReceiptRepository : IGenericRepository<Receipt>
     {
-        ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ReceiptRepository(ApplicationDbContext context)
         {
@@ -43,8 +43,7 @@ namespace OnlineStore_DAL.Repositories
             return await _context.Receipts
                 .Include(r => r.User)
                 .Include(r => r.Products)
-                    .ThenInclude(p => p.Image)    
-
+                .ThenInclude(p => p.Image)
                 .ToListAsync();
         }
 
@@ -53,14 +52,12 @@ namespace OnlineStore_DAL.Repositories
             var receipt = await _context.Receipts
                 .Include(r => r.User)
                 .Include(r => r.Products)
-                    .ThenInclude(p => p.Image)
-
+                .ThenInclude(p => p.Image)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (receipt != null)
                 return receipt;
-            else
-                throw new NullReferenceException();
+            throw new NullReferenceException();
         }
 
         public async Task UpdateAsync(Receipt entity)

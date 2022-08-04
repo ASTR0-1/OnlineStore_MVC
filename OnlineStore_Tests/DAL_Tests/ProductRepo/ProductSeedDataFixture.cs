@@ -1,22 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore_DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using OnlineStore_DAL.Models;
 
 namespace OnlineStore_Tests.DAL_Tests.ProductRepo
 {
     public class ProductSeedDataFixture : IDisposable
     {
-        public ApplicationDbContext ApplicationDbContext { get; private set; } = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options);
-
         public ProductSeedDataFixture()
         {
             ApplicationDbContext.Products.Add(new Product
             {
                 Name = "Onion",
-                Price = new Decimal(2.45),
+                Price = new decimal(2.45),
                 AmountAvailable = 20,
                 Image = new Image(),
                 Category = new Category(),
@@ -27,7 +23,7 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             ApplicationDbContext.Products.Add(new Product
             {
                 Name = "Tomato",
-                Price = new Decimal(3.50),
+                Price = new decimal(3.50),
                 AmountAvailable = 3,
                 Category = new Category(),
                 WishLists = new List<WishList>(),
@@ -37,6 +33,11 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
 
             ApplicationDbContext.SaveChanges();
         }
+
+        public ApplicationDbContext ApplicationDbContext { get; } = new ApplicationDbContext(
+            new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options);
 
         public void Dispose()
         {

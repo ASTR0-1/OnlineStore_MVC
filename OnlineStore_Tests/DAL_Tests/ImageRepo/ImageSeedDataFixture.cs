@@ -1,15 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using OnlineStore_DAL.Models;
-using System;
 
 namespace OnlineStore_Tests.DAL_Tests.ImageRepo
 {
     public class ImageSeedDataFixture : IDisposable
     {
-        public ApplicationDbContext ApplicationDbContext { get; private set; } = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options);
-
         public ImageSeedDataFixture()
         {
             ApplicationDbContext.Images.Add(new Image
@@ -18,11 +14,11 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
                 Product = new Product
                 {
                     Name = "Potato",
-                    Price = new Decimal(1.50),
+                    Price = new decimal(1.50),
                     AmountAvailable = 2,
                     CategoryId = 1
                 },
-                ProductId = 1,
+                ProductId = 1
             });
             ApplicationDbContext.Images.Add(new Image
             {
@@ -30,14 +26,19 @@ namespace OnlineStore_Tests.DAL_Tests.ImageRepo
                 Product = new Product
                 {
                     Name = "Tomato",
-                    Price = new Decimal(2.50),
+                    Price = new decimal(2.50),
                     AmountAvailable = 5,
                     CategoryId = 1
                 },
-                ProductId = 2,
+                ProductId = 2
             });
             ApplicationDbContext.SaveChanges();
         }
+
+        public ApplicationDbContext ApplicationDbContext { get; } = new ApplicationDbContext(
+            new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options);
 
         public void Dispose()
         {

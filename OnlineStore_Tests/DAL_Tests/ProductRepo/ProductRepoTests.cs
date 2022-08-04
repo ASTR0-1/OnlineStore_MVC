@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using OnlineStore_DAL.Models;
-using OnlineStore_DAL.Repositories;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
+using OnlineStore_DAL.Models;
+using OnlineStore_DAL.Repositories;
 
 namespace OnlineStore_Tests.DAL_Tests.ProductRepo
 {
@@ -28,7 +28,8 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
 
             // Assert
             Assert.IsNotNull(actualException, "Method doesn't throw any exceptions.");
-            Assert.That(actualException.GetType(), Is.EqualTo(expectedException), "Method doesn't throw null exception.");
+            Assert.That(actualException.GetType(), Is.EqualTo(expectedException),
+                "Method doesn't throw null exception.");
         }
 
         [Test]
@@ -38,11 +39,12 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            Product product = new Product();
-            int expectedCount = 3;
+            var product = new Product();
+            var expectedCount = 3;
 
             // Act
-            await _productRepo.AddAsync(new Product { Name = "Carrot", Price = new Decimal(5.45), AmountAvailable = 20, CategoryId = 2 });
+            await _productRepo.AddAsync(new Product
+                {Name = "Carrot", Price = new decimal(5.45), AmountAvailable = 20, CategoryId = 2});
             var actualCount = fixture.ApplicationDbContext.Products.Count();
 
             //Assert
@@ -56,7 +58,7 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int notExistingId = -1;
+            var notExistingId = -1;
             var expectedException = typeof(NullReferenceException);
 
             // Act
@@ -74,12 +76,12 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int existingId = 1;
-            int expectedCount = 1;
+            var existingId = 1;
+            var expectedCount = 1;
 
             // Act
             await _productRepo.DeleteAsync(existingId);
-            int actualCount = fixture.ApplicationDbContext.Products.Count();
+            var actualCount = fixture.ApplicationDbContext.Products.Count();
 
             //Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Product wasn't deleted.");
@@ -92,10 +94,10 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int expectedCount = 2;
+            var expectedCount = 2;
 
             // Act
-            int actualCount = (await _productRepo.GetAllAsync()).Count();
+            var actualCount = (await _productRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Product count wasn't equal to expected.");
@@ -108,7 +110,7 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int notExistingId = -1;
+            var notExistingId = -1;
             var expectedException = typeof(NullReferenceException);
 
             // Act
@@ -125,11 +127,11 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int existingId = 1;
-            string expectedProductName = "Onion";
+            var existingId = 1;
+            var expectedProductName = "Onion";
 
             // Act
-            string actualProductName = (await _productRepo.GetAsync(existingId)).Name;
+            var actualProductName = (await _productRepo.GetAsync(existingId)).Name;
 
             // Assert
             Assert.That(actualProductName, Is.EqualTo(expectedProductName), "Products was not equal.");
@@ -159,13 +161,13 @@ namespace OnlineStore_Tests.DAL_Tests.ProductRepo
             _productRepo = new ProductRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            Product product = await _productRepo.GetAsync(1);
-            string expectedName = "Opnion";
+            var product = await _productRepo.GetAsync(1);
+            var expectedName = "Opnion";
             product.Name = expectedName;
 
             // Act
             await _productRepo.UpdateAsync(product);
-            string actualName = (await _productRepo.GetAsync(1)).Name;
+            var actualName = (await _productRepo.GetAsync(1)).Name;
 
             // Assert
             Assert.That(actualName, Is.EqualTo(expectedName), "Product's names aren't equal.");

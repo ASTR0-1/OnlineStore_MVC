@@ -1,10 +1,10 @@
-using NUnit.Framework;
-using OnlineStore_DAL.Models;
-using OnlineStore_DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NUnit.Framework;
+using OnlineStore_DAL.Models;
+using OnlineStore_DAL.Repositories;
 
 namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
 {
@@ -29,7 +29,8 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
 
             // Assert
             Assert.IsNotNull(actualException, "Method doesn't throw any exceptions.");
-            Assert.That(actualException.GetType(), Is.EqualTo(expectedException), "Method doesn't throw null exception.");
+            Assert.That(actualException.GetType(), Is.EqualTo(expectedException),
+                "Method doesn't throw null exception.");
         }
 
         [Test]
@@ -39,16 +40,17 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            Category category = new Category();
-            int expectedCount = 3;
+            var category = new Category();
+            var expectedCount = 3;
 
             // Act
             await _categoryRepo.AddAsync(new Category
             {
                 Name = "Bread",
-                Products = new List<Product> {
-                        new Product { Name = "Black bread", Price = new Decimal(12.25), AmountAvailable = 2, CategoryId = 3 },
-                       }
+                Products = new List<Product>
+                {
+                    new Product {Name = "Black bread", Price = new decimal(12.25), AmountAvailable = 2, CategoryId = 3}
+                }
             });
             var actualCount = fixture.ApplicationDbContext.Categories.Count();
 
@@ -63,7 +65,7 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int notExistingId = -1;
+            var notExistingId = -1;
             var expectedException = typeof(NullReferenceException);
 
             // Act
@@ -81,12 +83,12 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int existingId = 1;
-            int expectedCount = 1;
+            var existingId = 1;
+            var expectedCount = 1;
 
             // Act
             await _categoryRepo.DeleteAsync(existingId);
-            int actualCount = fixture.ApplicationDbContext.Categories.Count();
+            var actualCount = fixture.ApplicationDbContext.Categories.Count();
 
             //Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Category wasn't deleted.");
@@ -99,10 +101,10 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int expectedCount = 2;
+            var expectedCount = 2;
 
             // Act
-            int actualCount = (await _categoryRepo.GetAllAsync()).Count();
+            var actualCount = (await _categoryRepo.GetAllAsync()).Count();
 
             // Assert
             Assert.That(actualCount, Is.EqualTo(expectedCount), "Categories count wasn't equal to expected.");
@@ -115,7 +117,7 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int notExistingId = -1;
+            var notExistingId = -1;
             var expectedException = typeof(NullReferenceException);
 
             // Act
@@ -132,11 +134,11 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            int existingId = 1;
-            string expectedCategoryName = "Fruits";
+            var existingId = 1;
+            var expectedCategoryName = "Fruits";
 
             // Act
-            string actualCategoryName = (await _categoryRepo.GetAsync(existingId)).Name;
+            var actualCategoryName = (await _categoryRepo.GetAsync(existingId)).Name;
 
             // Assert
             Assert.That(actualCategoryName, Is.EqualTo(expectedCategoryName), "Categories was not equal.");
@@ -166,13 +168,13 @@ namespace OnlineStore_Tests.DAL_Tests.CategoryRepo
             _categoryRepo = new CategoryRepository(fixture.ApplicationDbContext);
 
             // Arrange
-            Category category = await _categoryRepo.GetAsync(1);
-            string expectedCategoryName = "ChangedFruits";
+            var category = await _categoryRepo.GetAsync(1);
+            var expectedCategoryName = "ChangedFruits";
             category.Name = expectedCategoryName;
 
             // Act
             await _categoryRepo.UpdateAsync(category);
-            string actualCategoryName = (await _categoryRepo.GetAsync(1)).Name;
+            var actualCategoryName = (await _categoryRepo.GetAsync(1)).Name;
 
             // Assert
             Assert.That(actualCategoryName, Is.EqualTo(expectedCategoryName), "Category names aren't equal.");

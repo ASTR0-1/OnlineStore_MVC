@@ -1,15 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore_DAL.Interfaces;
-using OnlineStore_DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using OnlineStore_DAL.Interfaces;
+using OnlineStore_DAL.Models;
 
 namespace OnlineStore_DAL.Repositories
 {
     public class ImageRepository : IGenericRepository<Image>
     {
-        ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ImageRepository(ApplicationDbContext context)
         {
@@ -53,8 +53,7 @@ namespace OnlineStore_DAL.Repositories
 
             if (image != null)
                 return image;
-            else
-                throw new NullReferenceException();
+            throw new NullReferenceException();
         }
 
         public async Task UpdateAsync(Image entity)

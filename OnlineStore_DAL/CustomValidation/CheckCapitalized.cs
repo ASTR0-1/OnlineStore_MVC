@@ -8,8 +8,7 @@ namespace OnlineStore_DAL.CustomValidation
         {
             if (char.IsUpper(value.ToString()[0]))
                 return ValidationResult.Success;
-            else
-                return new ValidationResult("First letter must be capital");
+            return new ValidationResult("First letter must be capital");
         }
     }
 }

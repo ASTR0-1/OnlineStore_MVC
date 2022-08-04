@@ -11,20 +11,14 @@ namespace OnlineStore_DAL.Models
 
         public int UserId { get; set; }
 
-        [Required]
-        [ForeignKey("UserId")]
-        public User User { get; set; }
+        [Required] [ForeignKey("UserId")] public User User { get; set; }
 
-        [Required]
-        public List<Product> Products { get; set; }
+        [Required] public List<Product> Products { get; set; }
 
-        [Required]
-        public DateTime Date { get; set; }
+        [Required] public DateTime Date { get; set; }
 
-        [Required]
-        public string City { get; set; }
+        [Required] public string City { get; set; }
 
-        [Required]
-        public string Address { get; set; }
+        [Required] public string Address { get; set; }
     }
 }

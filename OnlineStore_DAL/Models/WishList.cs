@@ -8,13 +8,10 @@ namespace OnlineStore_DAL.Models
     {
         public int Id { get; set; }
 
-        [ForeignKey("UserId")]
-        public int UserId { get; set; }
+        [ForeignKey("UserId")] public int UserId { get; set; }
 
-        [Required]
-        public User User { get; set; }
+        [Required] public User User { get; set; }
 
-        [Required]
-        public List<Product> Products { get; set; }
+        [Required] public List<Product> Products { get; set; }
     }
 }

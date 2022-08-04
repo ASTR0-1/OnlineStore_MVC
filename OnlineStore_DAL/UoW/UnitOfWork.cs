@@ -1,9 +1,6 @@
 ﻿using OnlineStore_DAL.Interfaces;
 using OnlineStore_DAL.Models;
 using OnlineStore_DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineStore_DAL.UoW
 {
