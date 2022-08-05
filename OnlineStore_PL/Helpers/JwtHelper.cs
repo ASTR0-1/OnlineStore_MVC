@@ -1,11 +1,11 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using OnlineStore_DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using OnlineStore_DAL.Models;
 
 namespace OnlineStore_PL.Helpers
 {
@@ -48,7 +48,7 @@ namespace OnlineStore_PL.Helpers
 
             var roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r));
 
-            ClaimsIdentity claimsIdentity =
+            var claimsIdentity =
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
 
