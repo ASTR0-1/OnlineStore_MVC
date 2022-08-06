@@ -25,7 +25,7 @@ namespace OnlineStore_BLL.Services
         public async Task<User> SignIn(SignIn entity)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == entity.Email);
-
+            
             if (user == null)
                 throw new ArgumentException($"There is no user with such email \"{entity.Email}\"");
 
@@ -33,6 +33,8 @@ namespace OnlineStore_BLL.Services
 
             if (!isPasswordCorrect)
                 throw new ArgumentException($"Wrong password for user \"{user.Email}\"");
+
+            await _signInManager.SignInAsync(user, true);
 
             return user;
         }
@@ -60,6 +62,7 @@ namespace OnlineStore_BLL.Services
             var currentUser = await _userManager.FindByEmailAsync(entity.Email);
 
             await _userManager.AddToRoleAsync(currentUser, "Customer");
+            await _signInManager.SignInAsync(user, true);
         }
 
         public async Task<Message> ForgotPassword(ForgotPassword entity)
@@ -88,7 +91,7 @@ namespace OnlineStore_BLL.Services
             var user = await _userManager.FindByEmailAsync(entity.Email);
 
             if (user == null)
-                throw new ArgumentException($"There is no user with such email \"{entity.Email}\"");
+                throw new ArgumentException($"There is no user with su fch email \"{entity.Email}\"");
 
             var result = await _userManager.ResetPasswordAsync(user, entity.Token, entity.Password);
 

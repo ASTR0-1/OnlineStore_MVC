@@ -12,10 +12,10 @@ namespace OnlineStore_BLL.Services
 {
     public class RoleService : IRoleService
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly UserManager<User> _userManager;
 
-        public RoleService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public RoleService(UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -43,7 +43,7 @@ namespace OnlineStore_BLL.Services
             if (_roleManager.Roles.Select(r => r.NormalizedName).Contains(roleName.ToUpper()))
                 throw new ArgumentException($"Role with name \"{roleName}\" already exsists");
 
-            var result = await _roleManager.CreateAsync(new IdentityRole(roleName));
+            var result = await _roleManager.CreateAsync(new IdentityRole<int>(roleName));
 
             if (!result.Succeeded)
                 throw new Exception($"Error while creating role \"{roleName}\"");
