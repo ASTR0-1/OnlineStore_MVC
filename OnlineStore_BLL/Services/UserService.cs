@@ -81,12 +81,10 @@ namespace OnlineStore_BLL.Services
 
         public async Task UpdateUser(User user)
         {
-            var userToUpdate = await _userManager.FindByEmailAsync(user.Email);
+            if (user == null)
+                throw new ArgumentException($"There is no user with such email \"{user.Email}\"");
 
-            if (userToUpdate == null)
-                throw new ArgumentException($"There is no user with such id \"{user.Id}\"");
-
-            await _userManager.UpdateAsync(userToUpdate);
+            await _userManager.UpdateAsync(user);
         }
     }
 }

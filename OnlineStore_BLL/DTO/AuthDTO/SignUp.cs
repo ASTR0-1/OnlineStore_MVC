@@ -8,7 +8,6 @@ namespace OnlineStore_BLL.DTO.AuthDTO
         [Required]
         [MinLength(2)]
         [MaxLength(25)]
-        [CheckCapitalized]
         public string FirstName { get; set; }
 
         [Required]
@@ -27,7 +26,5 @@ namespace OnlineStore_BLL.DTO.AuthDTO
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "Passwords aren't equal")]
         public string ConfirmPassword { get; set; }
-
-        [Required] public string Role { get; set; }
     }
 }

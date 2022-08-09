@@ -116,10 +116,13 @@ namespace OnlineStore_BLL.Services
 
             var allProduct = await _unitOfWork.ProductRepository.GetAllAsync();
 
+            if (searchString == null)
+                return allProduct;
+
             productList.AddRange(allProduct
-                .Where(p => p.Name.Contains(searchString)
+                .Where(p => p.Name.ToLower().Contains(searchString.ToLower())
                             || p.Price.ToString().Contains(searchString)
-                            || p.Category.Name.Contains(searchString)));
+                            || p.Category.Name.ToLower().Contains(searchString.ToLower())));
 
             return productList;
         }
