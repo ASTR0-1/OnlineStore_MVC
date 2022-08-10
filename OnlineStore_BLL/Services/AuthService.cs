@@ -56,7 +56,10 @@ namespace OnlineStore_BLL.Services
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Email = entity.Email,
-                UserName = entity.Email
+                UserName = entity.Email,
+                ShoppingCart = new ShoppingCart(),
+                WishList = new WishList(),
+                Receipts = new List<Receipt>()
             };
 
             var result = await _userManager.CreateAsync(user, entity.Password);
