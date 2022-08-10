@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using OnlineStore_BLL.Interfaces;
 using OnlineStore_DAL.Interfaces;
 using OnlineStore_DAL.Models;
@@ -21,7 +22,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task AddProductAsync(int userId, int productId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var user = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
             var product = await _unitOfWork.ProductRepository.GetAsync(productId);
 
             if (user == null)
@@ -38,7 +43,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task RemoveProductAsync(int userId, int productId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var user = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
             var product = await _unitOfWork.ProductRepository.GetAsync(productId);
 
             if (user == null)
@@ -55,7 +64,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task ClearAsync(int userId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var user = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
 
             if (user == null)
                 throw new ArgumentException($"There is no such User with this id \"{userId}\"");
@@ -98,7 +111,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task<IEnumerable<Product>> GetCartProductsAsync(int userId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var user = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
                 throw new ArgumentException($"There is no such User with this id \"{userId}\"");

@@ -20,7 +20,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task DeleteUser(string email)
         {
-            var userToDelete = await _userManager.FindByEmailAsync(email);
+            var userToDelete = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Email == email);
             if (userToDelete == null)
                 throw new ArgumentException($"User with email \"{email}\" does not exists");
 
@@ -49,7 +53,11 @@ namespace OnlineStore_BLL.Services
             if (email == null)
                 throw new ArgumentException($"User with \"{email}\" not signed in");
 
-            var userToReturn = await _userManager.FindByEmailAsync(email);
+            var userToReturn = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Email == email);
 
             if (userToReturn == null)
                 throw new ArgumentException($"There is no user with such email \"{email}\"");
@@ -59,7 +67,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task<User> GetUserById(string id)
         {
-            var userToReturn = await _userManager.FindByIdAsync(id);
+            var userToReturn = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(id));
 
             if (userToReturn == null)
                 throw new ArgumentException($"There is no user with such id \"{id}\"");
@@ -69,7 +81,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task<int> GetUserId(string email)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Email == email);
 
             if (user == null)
                 throw new ArgumentException($"There is no user with such email \"{email}\"");

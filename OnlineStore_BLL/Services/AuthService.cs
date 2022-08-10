@@ -1,6 +1,7 @@
 ﻿using EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using OnlineStore_BLL.DTO.AuthDTO;
 using OnlineStore_BLL.Interfaces;
 using OnlineStore_DAL.Models;
@@ -24,7 +25,11 @@ namespace OnlineStore_BLL.Services
 
         public async Task<User> SignIn(SignIn entity)
         {
-            var user = _userManager.Users.SingleOrDefault(u => u.UserName == entity.Email);
+            var user = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Email == entity.Email);
             
             if (user == null)
                 throw new ArgumentException($"There is no user with such email \"{entity.Email}\"");
@@ -59,7 +64,11 @@ namespace OnlineStore_BLL.Services
             if (!result.Succeeded)
                 throw new Exception(string.Join(';', result.Errors.Select(ie => ie.Description)));
 
-            var currentUser = await _userManager.FindByEmailAsync(entity.Email);
+            var currentUser = await _userManager.Users
+                .Include(u => u.WishList)
+                .Include(u => u.Receipts)
+                .Include(u => u.ShoppingCart)
+                .FirstOrDefaultAsync(u => u.Email == entity.Email); ;
 
             await _userManager.AddToRoleAsync(currentUser, "Customer");
             await _signInManager.SignInAsync(user, true);
