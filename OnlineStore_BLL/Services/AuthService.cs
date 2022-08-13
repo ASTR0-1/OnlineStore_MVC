@@ -57,8 +57,8 @@ namespace OnlineStore_BLL.Services
                 LastName = entity.LastName,
                 Email = entity.Email,
                 UserName = entity.Email,
-                ShoppingCart = new ShoppingCart(),
-                WishList = new WishList(),
+                ShoppingCart = new ShoppingCart { Products = new List<Product>() },
+                WishList = new WishList { Products = new List<Product>() } ,
                 Receipts = new List<Receipt>()
             };
 
@@ -87,8 +87,8 @@ namespace OnlineStore_BLL.Services
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var param = new Dictionary<string, string>
             {
-                {"token", token},
-                {"email", entity.Email}
+                {"token", token },
+                {"email", entity.Email }
             };
             var callback = QueryHelpers.AddQueryString(entity.ClientURI, param);
 

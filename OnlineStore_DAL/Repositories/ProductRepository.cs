@@ -57,17 +57,22 @@ namespace OnlineStore_DAL.Repositories
         {
             var receipt = await _context.Products
                 .Include(p => p.WishLists)
-                .ThenInclude(w => w.User)
+                    .ThenInclude(w => w.User)
+
                 .Include(p => p.Receipts)
-                .ThenInclude(r => r.User)
+                    .ThenInclude(r => r.User)
+
                 .Include(p => p.ShoppingCarts)
-                .ThenInclude(sc => sc.User)
+                    .ThenInclude(sc => sc.User)
+
                 .Include(p => p.Image)
                 .Include(p => p.Category)
+
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (receipt != null)
                 return receipt;
+
             throw new NullReferenceException();
         }
 

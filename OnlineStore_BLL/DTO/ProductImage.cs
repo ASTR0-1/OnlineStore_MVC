@@ -11,7 +11,7 @@ namespace OnlineStore_BLL.DTO
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(20)]
         [CheckCapitalized]
         public string Name { get; set; }
 

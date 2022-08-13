@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using OnlineStore_BLL.Interfaces;
 using OnlineStore_BLL.Services;
+using OnlineStore_BLL.UoW;
 using OnlineStore_DAL.Interfaces;
 using OnlineStore_DAL.Models;
 using OnlineStore_DAL.UoW;
@@ -36,9 +37,14 @@ namespace OnlineStore_PL
             services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
             services.AddScoped<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddRazorRuntimeCompilation();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectDB")));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAdministrationUnitOfWork, AdministrationUnitOfWork>();
+            services.AddBllServices();
 
             services.AddIdentity<User, IdentityRole<int>>(options =>
                 {
@@ -50,13 +56,15 @@ namespace OnlineStore_PL
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.Configure<DataProtectionTokenProviderOptions>(opt =>
+                opt.TokenLifespan = TimeSpan.FromHours(1));
+
             services.Configure<JwtSettings>(Configuration.GetSection("JwtConfiguration"));
 
             services.AddAuthorization()
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                // To add login path when finish controllers
-                .AddCookie(opts =>
-                    opts.LoginPath = "")
+                .AddCookie(opts => 
+                    opts.LoginPath = "/Account/Login")
                 .AddJwtBearer(options =>
                 {
                     var jwtSettings = Configuration.GetSection("JwtConfiguration").Get<JwtSettings>();
@@ -69,12 +77,6 @@ namespace OnlineStore_PL
                         ClockSkew = TimeSpan.Zero
                     };
                 });
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddBllServices();
-
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUserService, UserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

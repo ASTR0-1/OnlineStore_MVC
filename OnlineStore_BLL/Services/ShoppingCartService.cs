@@ -5,6 +5,7 @@ using OnlineStore_DAL.Interfaces;
 using OnlineStore_DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineStore_BLL.Services
@@ -24,8 +25,14 @@ namespace OnlineStore_BLL.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.WishList)
+                    .ThenInclude(wl => wl.Products)
+
                 .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
                 .Include(u => u.ShoppingCart)
+                    .ThenInclude(sc => sc.Products)
+
                 .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
             var product = await _unitOfWork.ProductRepository.GetAsync(productId);
 
@@ -38,16 +45,23 @@ namespace OnlineStore_BLL.Services
             var shoppingCart = user.ShoppingCart;
             shoppingCart.Products.Add(product);
 
+            await _userManager.UpdateAsync(user);
             await _unitOfWork.ShoppingCartRepository.UpdateAsync(shoppingCart);
         }
 
         public async Task RemoveProductAsync(int userId, int productId)
         {
             var user = await _userManager.Users
-                .Include(u => u.WishList)
-                .Include(u => u.Receipts)
-                .Include(u => u.ShoppingCart)
-                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
+                 .Include(u => u.WishList)
+                     .ThenInclude(wl => wl.Products)
+
+                 .Include(u => u.Receipts)
+                     .ThenInclude(r => r.Products)
+
+                 .Include(u => u.ShoppingCart)
+                     .ThenInclude(sc => sc.Products)
+
+                 .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
             var product = await _unitOfWork.ProductRepository.GetAsync(productId);
 
             if (user == null)
@@ -59,6 +73,7 @@ namespace OnlineStore_BLL.Services
             var shoppingCart = user.ShoppingCart;
             shoppingCart.Products.Remove(product);
 
+            await _userManager.UpdateAsync(user);
             await _unitOfWork.ShoppingCartRepository.UpdateAsync(shoppingCart);
         }
 
@@ -66,8 +81,14 @@ namespace OnlineStore_BLL.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.WishList)
+                    .ThenInclude(wl => wl.Products)
+
                 .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
                 .Include(u => u.ShoppingCart)
+                    .ThenInclude(sc => sc.Products)
+
                 .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
 
             if (user == null)
@@ -113,8 +134,14 @@ namespace OnlineStore_BLL.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.WishList)
+                    .ThenInclude(wl => wl.Products)
+
                 .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
                 .Include(u => u.ShoppingCart)
+                    .ThenInclude(sc => sc.Products)
+
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
@@ -123,6 +150,36 @@ namespace OnlineStore_BLL.Services
             var productsToReturn = user.ShoppingCart.Products;
 
             return productsToReturn;
+        }
+
+        public async Task Checkout(int userId)
+        {
+            var user = await _userManager.Users
+                .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
+                .Include(u => u.ShoppingCart)
+                    .ThenInclude(sc => sc.Products)
+
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
+
+            if (user == null)
+                throw new ArgumentException($"There is no such User with this id \"{userId}\"");
+
+            var userReceipts = user.Receipts;
+
+            userReceipts.Add(new Receipt
+            {
+                User = user,
+                UserId = userId,
+                Address = user.Address,
+                City = user.City,
+                Products = (await GetCartProductsAsync(userId)).ToList(),
+                Date = DateTime.Now
+            });
+
+            await _userManager.UpdateAsync(user);
+            await ClearAsync(userId);
         }
     }
 }

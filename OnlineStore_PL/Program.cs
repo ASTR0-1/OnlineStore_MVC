@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OnlineStore_DAL.Models;
 using OnlineStore_PL.Helpers;
+using System;
+using System.Threading.Tasks;
 
 namespace OnlineStore_PL
 {
@@ -16,6 +16,7 @@ namespace OnlineStore_PL
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+
 
             using (var scope = host.Services.CreateScope())
             {

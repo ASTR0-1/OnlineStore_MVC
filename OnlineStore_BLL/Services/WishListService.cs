@@ -54,9 +54,15 @@ namespace OnlineStore_BLL.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.WishList)
+                    .ThenInclude(wl => wl.Products)
+
                 .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
                 .Include(u => u.ShoppingCart)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                    .ThenInclude(sc => sc.Products)
+
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
             var product = await _unitOfWork.ProductRepository.GetAsync(productId);
 
             if (user == null)
@@ -75,9 +81,15 @@ namespace OnlineStore_BLL.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.WishList)
+                    .ThenInclude(wl => wl.Products)
+
                 .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
                 .Include(u => u.ShoppingCart)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                    .ThenInclude(sc => sc.Products)
+
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
             var product = await _unitOfWork.ProductRepository.GetAsync(productId);
 
             if (user == null)
@@ -96,9 +108,15 @@ namespace OnlineStore_BLL.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.WishList)
+                    .ThenInclude(wl => wl.Products)
+
                 .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
                 .Include(u => u.ShoppingCart)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                    .ThenInclude(sc => sc.Products)
+
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
 
             if (user == null)
                 throw new ArgumentException($"There is no such User with this id \"{userId}\"");
@@ -112,9 +130,15 @@ namespace OnlineStore_BLL.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.WishList)
+                    .ThenInclude(wl => wl.Products)
+
                 .Include(u => u.Receipts)
+                    .ThenInclude(r => r.Products)
+
                 .Include(u => u.ShoppingCart)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                    .ThenInclude(sc => sc.Products)
+
+                .FirstOrDefaultAsync(u => u.Id == Convert.ToInt32(userId));
 
             if (user == null)
                 throw new ArgumentException($"There is no such User this id \"{userId}\"");

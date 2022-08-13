@@ -1,0 +1,64 @@
+﻿@model Product
+
+<div class="container-fluid cnr position-absolute vh-100">
+    <div class="row">
+        <!-- Categories select -->
+        <div class="col-3 d-flex flex-column align-items-center min-vh-100 py-5 n-ctg">
+            <p>Categories</p>
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed n-acrdn-btn" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" /> </svg>
+                </button>
+            </h2>
+            <div class="accordion">
+                <div id="panelsStayOpen-collapseOne" class="accordion-item n-acrdn" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-collapse">
+                        <div class="accordion-body d-flex flex-column n-acrdn-body">
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <a class="ctg-anch" asp-controller="Home" asp-action="Search" asp-route-searchString="@category.Name">@category.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @{ 
+            var categoryName = Model.Category.Name;
+        }
+        <div class="container d-flex flex-column gap-3 p-2 min-vh-100 col-9 n-prds">
+            <div class="d-flex flex-column rounded-4 gap-1 prd-dcrpn">
+                <h1 class="text-primary text-center">Product Description</h1>
+                <div class="d-flex flex-row gap-1">
+                    <p class="text-primary">Product name: </p>
+                    <p>@Model.Name</p>
+                </div>
+                <div class="d-flex flex-row gap-1">
+                    <p class="text-primary">Product's category name: </p>
+                    <p>@Model.Category.Name</p>
+                </div>
+                <div class="d-flex flex-row gap-1">
+                    <p class="text-primary">Product price: </p>
+                    <p class="text-success">@(String.Format("{0:0.00}", Model.Price))$</p>
+                </div>
+                <div class="d-flex flex-row gap-1">
+                    <p class="text-primary">Amount available: </p>
+                    <p>@Model.AmountAvailable</p>
+                    @if (categoryName == "Vegetables" || categoryName == "Fruits" || categoryName == "Berries")
+                    {
+                        <p class="text-success"> kg.</p>
+                    }
+                    else
+                    {
+                        <p class="text-success"> pkg.</p>
+                    }
+                </div>
+                <div class="d-flex flex-row gap-1">
+                    <p class="text-primary">Product description: </p>
+                    <p>@Model.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,9 +4,12 @@ namespace OnlineStore_BLL.DTO.AuthDTO
 {
     public class ResetPassword
     {
-        [Required][EmailAddress] public string Email { get; set; }
+        [Required]
+        [EmailAddress] 
+        public string Email { get; set; }
 
-        [Required] public string Token { get; set; }
+        [Required]
+        public string Token { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "Password should contain more than 6 symbols", MinimumLength = 6)]

@@ -46,7 +46,7 @@ namespace OnlineStore_BLL.Services
         public async Task<IEnumerable<Receipt>> GetAllUserReceiptsAsync(User entity)
         {
             var receiptList = await _unitOfWork.ReceiptRepository.GetAllAsync();
-            var userReceiptList = receiptList.Where(receipt => receipt.Id == entity.Id).ToList();
+            var userReceiptList = receiptList.Where(receipt => receipt.UserId == entity.Id).ToList();
 
             return userReceiptList;
         }

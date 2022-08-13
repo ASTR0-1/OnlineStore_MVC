@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Product>
+
+@{
+    var productsCount = Model.ToList().Count;
+}
+
+<div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="shoppingCartModalLabel"><img src="~/img/ShoppingCartProductCol.png" width="28" height="25"> ShoppingCart</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (productsCount == 0)
+                {
+                    <p>There is no products in your shopping cart.</p>
+                }
+                else
+                {
+                    <div class="d-flex flex-column gap-1">
+                        @foreach (var product in Model)
+                        {
+                            <div class="d-flex flex-row align-items-center gap-1 ml-lst">
+                                <p>@(product.Name)</p>
+                                <p class="text-success">@(String.Format("{0:0.00}", product.Price))$</p>
+                                <a class="nb-anch" asp-action="RemoveFromCart" asp-route-productId="@product.Id"
+                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <img src="~/img/UnShoppingCartProductCol.png"
+                                         width="28"
+                                         height="25" />
+                                </a>
+                                <a class="nb-anch" asp-action="Description" asp-controller="Home" asp-route-productId="@product.Id">
+                                    <img src="~/img/Details.png" width="28" height="28" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            @if (productsCount != 0)
+            {
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-danger" asp-action="ClearShoppingCart" asp-controller="Home"
+                       asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                        Remove all
+                    </a>
+                    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Home"
+                       asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                        Checkout
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

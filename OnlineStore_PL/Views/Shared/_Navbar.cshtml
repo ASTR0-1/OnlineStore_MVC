@@ -1,0 +1,47 @@
+﻿<nav class="navbar nb">
+    <div class="container-md">
+        <a class="navbar-brand-lg mx-auto nb-brand" asp-controller="Home" asp-action="Index">OnlineStore</a>
+
+        <form class="col-md-5 mx-auto my-auto" asp-controller="Home" asp-action="Search" role="search" method="get">
+            <div class="col-sm-2 input-group nb-search">
+                <input type="text"
+                       name="searchString"
+                       class="form-control nb-search-inp"
+                       placeholder="Search"
+                       autocomplete="off" />
+                <button class="btn nb-search-btn" type="submit"><img src="~/img/SearchButton.png" width="30" height="31"></button>
+            </div>
+        </form>
+
+        @{ 
+            var roles = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value);
+        }
+        <div class="hstack hstack-wrapper gap-4 mx-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="hstack gap-3 mx-auto">
+                    @if (roles.FirstOrDefault(r => r == "Admin") != null)
+                    {
+                        <a class="nb-anch" asp-controller="Administration" asp-action="Index"><img src="~/img/Administration.png" width="32" height="32"/></a>
+                    }
+                    <a class="nb-anch" data-bs-toggle="modal" data-bs-target="#shoppingCartModal"><img src="~/img/ShoppingCart.png" width="35" height="32" /></a>
+                    <a class="nb-anch" data-bs-toggle="modal" data-bs-target="#receiptsModal"><img src="~/img/Receipts.png" width="28" height="37" /></a>
+                    <a class="nb-anch" data-bs-toggle="modal" data-bs-target="#wishListModal"><img src="~/img/WishList.png" width="35" height="32" /></a>
+                </div>
+                <div class="hstack identity gap-3 mx-auto">
+                    <a class="nb-anch" asp-controller="Account" asp-action="Index">Hello, @User.Identity.Name</a>
+                    <a class="nb-anch" asp-controller="Account" asp-action="SignOut">Logout</a>
+                </div>
+            }
+            else
+            {
+                <div class="hstack gap-3 mx-auto">
+                    <a class="nb-anch" asp-controller="Account" asp-action="SignUp">Sign Up</a>
+                    <a class="nb-anch" asp-controller="Account" asp-action="Login">Login</a>
+                </div>
+            }
+        </div>
+    </div>
+</nav>

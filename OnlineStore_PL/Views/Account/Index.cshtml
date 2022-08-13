@@ -1,0 +1,43 @@
+﻿@model OnlineStore_BLL.DTO.AuthDTO.UserDTO
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row d-flex justify-content-center container-fluid position-absolute edit-wrapper align-content-center">
+    <div class="col-md-4 d-flex flex-column justify-content-center edit-form-wrapper">
+        <h4>Edit user info</h4>
+        <form asp-action="Index">
+            <span class="text-danger">@TempData["ErrorPage"]</span>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" value="@Model.FirstName"/>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" value="@Model.LastName"/>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Address</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" value="@Model.City" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" value="@Model.PhoneNumber"/>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update data" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

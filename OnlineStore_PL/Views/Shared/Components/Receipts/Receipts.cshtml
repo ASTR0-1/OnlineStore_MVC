@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Receipt>
+
+@{
+    var receiptCount = Model.ToList().Count;
+}
+
+<div class="modal fade" id="receiptsModal" tabindex="-1" aria-labelledby="receiptsModalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="receiptsModalModalLabel"><img src="~/img/ReceiptsCol.png" width="28" height="37" /> Receipts</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (receiptCount == 0)
+                {
+                    <p>You've never had ordered something.</p>
+                }
+                else
+                {
+                    <div class="d-flex flex-column gap-1">
+                        @foreach (var receipt in Model)
+                        {
+                            <div class="d-flex flex-row align-items-center gap-2 ml-lst">
+                                <p class="text-primary">ID: </p><p> @receipt.Id</p>
+                                <p class="text-primary">Date: </p><p>@String.Format("{0:d/M/yyyy HH:mm}", receipt.Date)</p>
+                                <p class="text-primary">Products ordered: </p><p>@receipt.Products.Count</p>
+                                <p class="text-primary">Total: </p><p class="text-success">@(String.Format("{0:0.00}", receipt.Products.Sum(p => p.Price)))$</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

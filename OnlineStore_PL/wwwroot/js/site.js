@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function accordionChange(mq) {
+    if (mq.matches) { // If media query matches
+        $('.n-acrdn').first().addClass('collapse');
+    }
+    else {
+        $('.n-acrdn').first().removeClass('collapse');
+    }
+}
 
-// Write your Javascript code.
+var mq = window.matchMedia("(max-width: 575.98px)")
+accordionChange(mq) // Call listener function at run time
+mq.addListener(accordionChange) // Attach listener function on state changes

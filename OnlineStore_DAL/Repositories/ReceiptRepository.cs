@@ -43,7 +43,8 @@ namespace OnlineStore_DAL.Repositories
             return await _context.Receipts
                 .Include(r => r.User)
                 .Include(r => r.Products)
-                .ThenInclude(p => p.Image)
+                    .ThenInclude(p => p.Image)
+
                 .ToListAsync();
         }
 
@@ -52,7 +53,8 @@ namespace OnlineStore_DAL.Repositories
             var receipt = await _context.Receipts
                 .Include(r => r.User)
                 .Include(r => r.Products)
-                .ThenInclude(p => p.Image)
+                    .ThenInclude(p => p.Image)
+
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (receipt != null)

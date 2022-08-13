@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Product>
+
+@{
+    var productsCount = Model.ToList().Count;
+}
+
+<div class="modal fade" id="wishListModal" tabindex="-1" aria-labelledby="wishListModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="wishListModalLabel"><img src="~/img/WishListProductCol.png" width="28" height="25"> Wish list</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (productsCount == 0)
+                {
+                    <p>There is no wished products in your list.</p>
+                }
+                else
+                {
+                    <div class="d-flex flex-column gap-1">
+                        @foreach (var product in Model)
+                        {
+                            <div class="d-flex flex-row align-items-center gap-1 ml-lst">
+                                <p>@(product.Name)</p>
+                                <p class="text-success">@(String.Format("{0:0.00}", product.Price))$</p>
+                                <a class="nb-anch" asp-action="RemoveFromWishList" asp-route-productId="@product.Id"
+                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <img src="~/img/UnWishListProductCol.png"
+                                         width="28"
+                                         height="25" />
+                                </a>
+                                <a class="nb-anch" asp-action="Description" asp-controller="Home" asp-route-productId="@product.Id">
+                                    <img src="~/img/Details.png" width="28" height="28" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            @if (productsCount != 0)
+            {
+                <div class="modal-footer">
+                    <a class="btn btn-danger" asp-action="ClearWishList" asp-controller="Home"
+                       asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                        Remove all
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

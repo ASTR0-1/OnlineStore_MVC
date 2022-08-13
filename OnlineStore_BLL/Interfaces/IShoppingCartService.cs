@@ -13,5 +13,7 @@ namespace OnlineStore_BLL.Interfaces
         Task<IEnumerable<Product>> GetCartProductsAsync(int userId);
 
         Task ClearAsync(int userId);
+
+        Task Checkout(int userId);
     }
 }

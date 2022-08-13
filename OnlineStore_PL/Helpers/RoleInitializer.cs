@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using OnlineStore_DAL.Models;
 
@@ -19,7 +20,8 @@ namespace OnlineStore_PL.Helpers
             {
                 var admin = new User
                 {
-                    FirstName = "Administrator", LastName = "ADM", Email = adminInfo.Email, UserName = adminInfo.Email
+                    FirstName = "Administrator", LastName = "ADM", Email = adminInfo.Email, UserName = adminInfo.Email,
+                    Receipts = new List<Receipt>(), WishList = new WishList(), ShoppingCart = new ShoppingCart()
                 };
 
                 var result = await userManager.CreateAsync(admin, adminInfo.Password);
