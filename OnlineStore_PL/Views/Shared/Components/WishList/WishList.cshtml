@@ -24,12 +24,14 @@
                             <div class="d-flex flex-row align-items-center gap-1 ml-lst">
                                 <p>@(product.Name)</p>
                                 <p class="text-success">@(String.Format("{0:0.00}", product.Price))$</p>
-                                <a class="nb-anch" asp-action="RemoveFromWishList" asp-route-productId="@product.Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnWishListProductCol.png"
-                                         width="28"
-                                         height="25" />
-                                </a>
+                                <form method="post" asp-action="RemoveFromWishList" asp-route-productId="@product.Id"
+                                       asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnWishListProductCol.png"
+                                             width="28"
+                                             height="25" />
+                                    </a>
+                                </form>
                                 <a class="nb-anch" asp-action="Description" asp-controller="Home" asp-route-productId="@product.Id">
                                     <img src="~/img/Details.png" width="28" height="28" />
                                 </a>
@@ -41,10 +43,12 @@
             @if (productsCount != 0)
             {
                 <div class="modal-footer">
-                    <a class="btn btn-danger" asp-action="ClearWishList" asp-controller="Home"
-                       asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                        Remove all
-                    </a>
+                    <form method="post" asp-action="ClearWishList" asp-controller="Home"
+                           asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                        <a class="btn btn-danger" onclick="this.parentElement.submit()">
+                            Remove all
+                        </a>
+                    </form>
                 </div>
             }
         </div>

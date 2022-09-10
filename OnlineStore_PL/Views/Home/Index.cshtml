@@ -82,38 +82,46 @@
                             @* If product is in User shopping cart then display "UnShoppingCart" button *@
                             @if (productList[counter].ShoppingCarts.FirstOrDefault(w => w.User.Email == email) != null)
                             {
-                                <a class="nb-anch" asp-action="RemoveFromCart"
-                                   asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnShoppingCartProductCol.png"
-                                         width="35"
-                                         height="32" />
-                                </a>
+                                <form method="post" asp-action="RemoveFromCart"
+                                      asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnShoppingCartProductCol.png"
+                                             width="35"
+                                             height="32" />
+                                    </a>
+                                </form>
                             }
                             else
                             {
-                                <a class="nb-anch" asp-action="AddToCart" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/ShoppingCartProductCol.png"
-                                         width="35"
-                                         height="32" />
-                                </a>
+                                <form method="post" asp-action="AddToCart" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/ShoppingCartProductCol.png"
+                                             width="35"
+                                             height="32" />
+                                    </a>
+                                </form>
                             }
 
                             @* If product is in User wish list then display "UnWishList" button *@
                             @if (productList[counter].WishLists.FirstOrDefault(w => w.User.Email == email) != null)
                             {
-                                <a class="nb-anch" asp-action="RemoveFromWishList" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnWishListProductCol.png" width="35" height="32" />
-                                </a>
+                                <form method="post" asp-action="RemoveFromWishList" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnWishListProductCol.png" width="35" height="32" />
+                                    </a>
+                                </form>
                             }
                             else
                             {
-                                <a class="nb-anch" asp-action="AddToWishList" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/WishListProductCol.png" width="35" height="32" />
-                                </a>
+                                <form method="post" asp-action="AddToWishList" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/WishListProductCol.png" width="35" height="32" />
+                                    </a>
+                                </form>
                             }
                             <a class="nb-anch" asp-action="Description" asp-controller="Home" asp-route-productId="@productList[counter].Id">
                                 <img src="~/img/Details.png" width="35" height="35" />
@@ -147,37 +155,45 @@
                             @* If product is in User shopping cart then display "UnShoppingCart" button *@
                             @if (productList[counter].ShoppingCarts.FirstOrDefault(w => w.User.Email == email) != null)
                             {
-                                <a class="nb-anch" asp-action="RemoveFromCart" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnShoppingCartProductCol.png"
-                                         width="35"
-                                         height="32" />
-                                </a>
+                                <form method="post" asp-action="RemoveFromCart" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnShoppingCartProductCol.png"
+                                             width="35"
+                                             height="32" />
+                                    </a>
+                                </form>
                             }
                             else
                             {
-                                <a class="nb-anch" asp-action="AddToCart" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/ShoppingCartProductCol.png"
-                                         width="35"
-                                         height="32" />
-                                </a>
+                                <form method="post" asp-action="AddToCart" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/ShoppingCartProductCol.png"
+                                             width="35"
+                                             height="32" />
+                                    </a>
+                                </form>
                             }
 
                             @* If product is in User wish list then display "UnWishList" button *@
                             @if (productList[counter].WishLists.FirstOrDefault(w => w.User.Email == email) != null)
                             {
-                                <a class="nb-anch" asp-action="RemoveFromWishList" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnWishListProductCol.png" width="35" height="32" />
-                                </a>
+                                <form method="post" asp-action="RemoveFromWishList" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnWishListProductCol.png" width="35" height="32" />
+                                    </a>
+                                </form>
                             }
                             else
                             {
-                                <a class="nb-anch" asp-action="AddToWishList" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/WishListProductCol.png" width="35" height="32" />
-                                </a>
+                                <form method="post" asp-action="AddToWishList" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/WishListProductCol.png" width="35" height="32" />
+                                    </a>
+                                </form>
                             }
                             <a class="nb-anch" asp-action="Description" asp-controller="Home" asp-route-productId="@productList[counter].Id">
                                 <img src="~/img/Details.png" width="35" height="35" />
@@ -211,37 +227,45 @@
                             @* If product is in User shopping cart then display "UnShoppingCart" button *@
                             @if (productList[counter].ShoppingCarts.FirstOrDefault(w => w.User.Email == email) != null)
                             {
-                                <a class="nb-anch" asp-action="RemoveFromCart" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnShoppingCartProductCol.png"
-                                         width="35"
-                                         height="32" />
-                                </a>
+                                <form method="post" asp-action="RemoveFromCart" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnShoppingCartProductCol.png"
+                                             width="35"
+                                             height="32" />
+                                    </a>
+                                </form>
                             }
                             else
                             {
-                                <a class="nb-anch" asp-action="AddToCart" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/ShoppingCartProductCol.png"
-                                         width="35"
-                                         height="32" />
-                                </a>
+                                <form method="post" asp-action="AddToCart" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/ShoppingCartProductCol.png"
+                                             width="35"
+                                             height="32" />
+                                    </a>
+                                </form>
                             }
 
                             @* If product is in User wish list then display "UnWishList" button *@
                             @if (productList[counter].WishLists.FirstOrDefault(w => w.User.Email == email) != null)
                             {
-                                <a class="nb-anch" asp-action="RemoveFromWishList" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnWishListProductCol.png" width="35" height="32" />
-                                </a>
+                                <form method="post" asp-action="RemoveFromWishList" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnWishListProductCol.png" width="35" height="32" />
+                                    </a>
+                                </form>
                             }
                             else
                             {
-                                <a class="nb-anch" asp-action="AddToWishList" asp-route-productId="@productList[counter].Id"
-                                   asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/WishListProductCol.png" width="35" height="32" />
-                                </a>
+                                <form method="post" asp-action="AddToWishList" asp-route-productId="@productList[counter].Id"
+                                      asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/WishListProductCol.png" width="35" height="32" />
+                                    </a>
+                                </form>
                             }
                             <a class="nb-anch" asp-action="Description" asp-controller="Home" asp-route-productId="@productList[counter].Id">
                                 <img src="~/img/Details.png" width="35" height="35" />

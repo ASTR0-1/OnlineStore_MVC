@@ -24,12 +24,14 @@
                             <div class="d-flex flex-row align-items-center gap-1 ml-lst">
                                 <p>@(product.Name)</p>
                                 <p class="text-success">@(String.Format("{0:0.00}", product.Price))$</p>
-                                <a class="nb-anch" asp-action="RemoveFromCart" asp-route-productId="@product.Id"
+                                <form method="post" asp-action="RemoveFromCart" asp-route-productId="@product.Id"
                                    asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                                    <img src="~/img/UnShoppingCartProductCol.png"
-                                         width="28"
-                                         height="25" />
-                                </a>
+                                    <a class="nb-anch" onclick="this.parentElement.submit()">
+                                        <img src="~/img/UnShoppingCartProductCol.png"
+                                             width="28"
+                                             height="25" />
+                                    </a>
+                                </form>
                                 <a class="nb-anch" asp-action="Description" asp-controller="Home" asp-route-productId="@product.Id">
                                     <img src="~/img/Details.png" width="28" height="28" />
                                 </a>
@@ -41,14 +43,18 @@
             @if (productsCount != 0)
             {
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-danger" asp-action="ClearShoppingCart" asp-controller="Home"
+                    <form method="post" asp-action="ClearShoppingCart" asp-controller="Home"
                        asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
-                        Remove all
-                    </a>
-                    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Home"
+                        <a class="btn btn-danger" onclick="this.parentElement.submit()">
+                            Remove all
+                        </a>
+                    </form>
+                    <form method="post" asp-action="Checkout" asp-controller="Home"
                        asp-route-callBackPath="@Context.Request.Path@Context.Request.QueryString">
+                        <a class="btn btn-primary" onclick="this.parentElement.submit()">
                         Checkout
-                    </a>
+                        </a>
+                    </form>
                 </div>
             }
         </div>

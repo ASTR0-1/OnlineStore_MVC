@@ -27,6 +27,7 @@ namespace OnlineStore_PL.Controllers
             _wishListService = wishListService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             ViewBag.Categories = await _categoryService.GetAllAsync();
@@ -48,6 +49,7 @@ namespace OnlineStore_PL.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Description(int productId)
         {
             ViewBag.Categories = await _categoryService.GetAllAsync();
@@ -60,6 +62,7 @@ namespace OnlineStore_PL.Controllers
             return View("Description", productToReturn);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Search(int page = 1, string searchString = "")
         {
             ViewBag.Categories = await _categoryService.GetAllAsync();
@@ -82,6 +85,7 @@ namespace OnlineStore_PL.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, string callBackPath)
         {
             var userEmail = User.Identity.Name;
@@ -92,6 +96,7 @@ namespace OnlineStore_PL.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> RemoveFromCart(int productId, string callBackPath)
         {
             var userEmail = User.Identity.Name;
@@ -102,6 +107,7 @@ namespace OnlineStore_PL.Controllers
             return Redirect(callBackPath);
         }
 
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddToWishList(int productId, string callBackPath)
         {
@@ -114,6 +120,7 @@ namespace OnlineStore_PL.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> RemoveFromWishList(int productId, string callBackPath)
         {
             var userEmail = User.Identity.Name;
@@ -125,6 +132,7 @@ namespace OnlineStore_PL.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> ClearShoppingCart(string callBackPath)
         {
             var userEmail = User.Identity.Name;
@@ -136,6 +144,7 @@ namespace OnlineStore_PL.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> ClearWishList(string callBackPath)
         {
             var userEmail = User.Identity.Name;
@@ -147,6 +156,7 @@ namespace OnlineStore_PL.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Checkout(string callBackPath)
         {
             var userEmail = User.Identity.Name;
